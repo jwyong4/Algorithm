@@ -12,14 +12,6 @@ class Solution {
             arrY[Y.charAt(i) - '0']++;
         }
         
-//         for (String s : X.split("")) {
-//             arrX[Integer.valueOf(s)]++;
-//         }
-                
-//         for (String s : Y.split("")) {
-//             arrY[Integer.valueOf(s)]++;
-//         }
-        
         for (int i = 9; i >= 0; i--) {
             for (int j = 0; j < Math.min(arrX[i], arrY[i]); j++) {
                 sb.append(i);
