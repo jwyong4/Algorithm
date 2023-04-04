@@ -1,38 +1,32 @@
 import java.util.*;
 class Solution {
     public int[] solution(String msg) {
-        char[] chArr = msg.toCharArray();
-        Map<String, Integer> map = new HashMap<>();
-        List<Integer> list = new ArrayList<>();
-        int index = 1;
+        Queue<String> que = new LinkedList<>();
+        List<String> dic = new ArrayList<>();
+        List<Integer> ansList = new ArrayList<>();
         
-        for (int i = 65; i <= 90; i++) {
-            map.put(String.valueOf((char) i), index);
-            index++;
+        for (String s : msg.split("")) {
+            que.offer(s);
         }
         
-        String word = String.valueOf(chArr[0]);
-        for (int i = 0; i < chArr.length - 1; i++) {
-            String s1 = String.valueOf(chArr[i]);
-            String s2 = String.valueOf(chArr[i + 1]);
-            word += s2;
-            if (map.containsKey(word)) {
-                list.add(map.get(word));
-                System.out.println("있을때" + word);
-                i++;
+        for (int i = 65; i <= 90; i++) {
+            dic.add(String.valueOf((char)i));
+        }
+        
+        String word = "";
+        while (!que.isEmpty() || !word.equals("")) {
+            if (dic.contains(word + que.peek())) {
+                word += que.poll();
             } else {
-                word = word.substring(0, word.length() - 1);
-                list.add(map.get(word));
-                map.put(word, index);
-                System.out.println("없을때" + word);
-                word = s2;
-                index++;
+                dic.add(word + que.peek());
+                ansList.add(dic.indexOf(word) + 1);
+                word = "";
             }
         }
         
-        int[] answer = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            answer[i] = list.get(i);
+        int[] answer = new int[ansList.size()];
+        for (int i = 0; i < ansList.size(); i++) {
+            answer[i] = ansList.get(i);
         }
         
         return answer;
